@@ -1,10 +1,10 @@
 class Array
-    def select &block
+    def select
         newarr = []
         i = 0
         
         while i < self.length
-            res = block.call self[i]
+            res = yield self[i]
             newarr << self[i] if res == true
             i += 1
         end
@@ -18,12 +18,12 @@ class Array
         end
     end
 
-    def all? &block
+    def all?
         result = true
         i = 0
         
         while i < self.length 
-            res = block.call self[i]
+            res = yield self[i]
             
             unless res
                 return
@@ -36,12 +36,12 @@ class Array
         result
     end
 
-    def any? &block
+    def any?
         result = false
         i = 0
         
         while i < self.length
-            res = block.call self[i]
+            res = yield self[i]
             
             if res == true
                 return true
