@@ -1,54 +1,60 @@
 class Array
 
-    def vtfilter
+    def select &block
         newarr = []
-
-        self.each do |item|
-            res = yield item
-
-            newarr << item if res == true
-        end
+		i = 0
+		
+		while i < self.length
+			res = block.call self[i]
+			newarr << self[i] if res == true
+			i += 1
+		end
 
         newarr
     end
 
-    def vtfind search
+    def detect search
         vtfilter self do |item|
             return item if item == search
         end
     end
 
-    def vtevery?
+    def all? &block
         result = true
-
-        self.each do |item|
-            res = yield item
-
-            unless res
-                return
-            end
-
-            result = res
-        end
+		i = 0
+		
+		while i < self.length 
+			res = block.call self[i]
+			
+			unless res
+				return
+			end
+			
+			result = res
+			i += 1
+		end
 
         result
     end
 
-    def vtsome?
+    def any? &block
         result = false
-
-        self.each do |item|
-            res = yield item
-
-            if res == true
-                return true
-            end
-        end
+		i = 0
+		
+		while i < self.length
+			res = block.call self[i]
+			
+			if res == true
+				return true
+			end
+			
+			i += 1
+		end
 
         result
     end
 
-    def vtcounts &block
+    def counts &block
         self.vtfilter(&block).length
     end
 
@@ -56,15 +62,11 @@ end
 
 def sumOfPow *args
     arrWithoutMin = args - [args.min]
-    arrWithoutMin.inject(0) do |accum, item|
-        accum += item**2
-    end
+	
+	arrWithoutMin[0]**2 + arrWithoutMin[1]**2
 end
 
-def fibonacci index
-    if index <= 1
-        return 1
-    end
-
-    index*fibonacchi(index - 1)
+def fib ind
+  return ind if ind == 0 or ind == 1
+  fib(ind - 1) + fib(ind - 2)
 end
