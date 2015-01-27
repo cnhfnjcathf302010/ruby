@@ -65,7 +65,7 @@ def sumOfPow *args
     arrWithoutMin[0]**2 + arrWithoutMin[1]**2
 end
 
-def fib(n)
+def fib n
     return n if n == 0 or n == 1
     fib(n - 1) + fib(n - 2)
 end
