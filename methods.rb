@@ -13,7 +13,7 @@ class Array
     end
 
     def detect search
-        vtfilter self do |item|
+        select self do |item|
             return item if item == search
         end
     end
@@ -54,7 +54,7 @@ class Array
     end
 
     def counts &block
-        self.vtfilter(&block).length
+        self.select(&block).length
     end
 
 end
